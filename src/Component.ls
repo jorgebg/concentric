@@ -1,3 +1,7 @@
+require! {
+  concentric: './'
+}
+
 module.exports = \
 class Component
 
@@ -18,28 +22,16 @@ class Component
   get: ( key ) ->
     @[key]
 
-  merge: (source={}, target=@) ->
-    for key in Object.keys source
-      old-value = target[key]
-      new-value = source[key]
-      is-object = typeof new-value \
-        == typeof old-value \
-        == \object
-      if is-object
-        @merge new-value, old-value
-      else
-        setter = \
-        if target.set? then target~set
-        else (k,v) -> target[k] = v
-        setter key, new-value
+  merge: (source={}) ->
+    concentric.merge @, source
 
   \implements : (itf, ensure=true) ->
     @@implements itf, ensure
+
+  @implements = (itf, ensure=true) ->
+    concentric.implements @, itf, ensure
 
   @implement = (itf) ->
     @ import all itf
     if typeof itf is \function
       @:: import all itf::
-
-Component.implements = (itf, ensure=true) ->
-  require('./implements') @, itf, ensure

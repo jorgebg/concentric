@@ -7,15 +7,23 @@
   IExample = (function(){
     IExample.displayName = 'IExample';
     var prototype = IExample.prototype, constructor = IExample;
-    prototype.instanceMethod = function(a, b){};
-    prototype.instanceMethodMiss = function(){};
-    IExample.staticMethod = function(a, b){};
-    IExample.staticMethodMiss = function(){};
+    prototype.instanceMethod = function(a, b){
+      throw Error('unimplemented');
+    };
+    prototype.instanceMethodMiss = function(){
+      throw Error('unimplemented');
+    };
+    IExample.staticMethod = function(a, b){
+      throw Error('unimplemented');
+    };
+    IExample.staticMethodMiss = function(){
+      throw Error('unimplemented');
+    };
     function IExample(){}
     return IExample;
   }());
   describe = bind$(vows, 'describe');
-  describe('Component').addBatch({
+  describe('Component interfaces').addBatch({
     "when the class implements the interface": {
       topic: function(){
         var Right;
@@ -54,6 +62,37 @@
         return this.isFalse(function(it){
           return it['implements'](IExample, false);
         });
+      })
+    }
+  })['export'](module);
+  describe('Component getters, setters and merge').addBatch({
+    "A new component is created": {
+      topic: function(){
+        return new Component({
+          firstname: 'foo',
+          lastname: 'bar',
+          colors: {
+            grey: '#333333',
+            green: '#448800'
+          }
+        });
+      },
+      '`get` should return the property': at(function(){
+        return this.equal(function(it){
+          return it.get('firstname');
+        }, 'foo');
+      }),
+      '`merge` should merge the properties': at(function(){
+        var newGrey;
+        newGrey = '#555555';
+        this.topic.merge({
+          colors: {
+            grey: newGrey
+          }
+        });
+        return this.equal(function(it){
+          return it.get('colors').grey;
+        }, newGrey);
       })
     }
   })['export'](module);
