@@ -1,0 +1,19 @@
+{
+  "name": "concentric",
+  "version": "0.0.1",
+  "description": "Improves OOP with interfaces and base classes",
+  "author": "Jorge Barata González",
+  "main": "./lib/index.js",
+  "dependencies" : {
+    "vows" : "latest",
+    "vows-at" : "latest"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/jorgebg/concentric.git"
+  },
+  "bugs" : {
+    "url" : "http://github.com/jorgebg/concentric/issues"
+  },
+  "keywords" : ["interface", "livescript", "coffeescript", "oop", "component"]
+}
